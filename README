@@ -1,0 +1,7 @@
+This is the repository for my report in the course Geostatistics. It includes the following files
+
+- Interpolate_Kriging.ipynb: Ipython Notebook where I test and run the geostat module with data. 
+- Project_report.pdf: Report for the project.
+- get_weather_stations.py: Download measured precipitation from Frost API.
+- geostat.py: My own python module for finding the variogram and solving the ordinary kriging equations.
+- stations(*: Downloaded data for the project report.
