@@ -8,6 +8,7 @@ Created on Mon Nov 22 17:01:51 2021
 import requests
 import pandas as pd
 import pickle
+import datetime
 
 # get data from metadata
 with open('/home/erlend/frost_id', 'r') as file:
@@ -23,7 +24,8 @@ def get_rain_from_frost_hourly(ids, start, end):
         "referencetime": reftime,
         "elements": elements,
     }
-    r = requests.get(url=url, params=parameters, headers=headers, auth=(clientID, ""))
+    r = requests.get(
+        url=url, params=parameters, headers=headers, auth=(clientID, ""))
     return r.json()
 
 #should be compatible with metadata file as not all stations are online always
@@ -41,13 +43,18 @@ for i in met_stations:
     time = []
     
     r = get_rain_from_frost_hourly(met_stations[i]["id"], start, end)
+    
+    # not all stations are available as the "sources" API does not list the
+    # start of indivitual measurements, rather the weather station as a whole
+    
     if 'error' not in r:
         print('Added: ', i, ' (', c, '/', str(tot), ')')
         for j in r['data']:
             # read data to xarray
             data.append(j['observations'][0]['value'])
-            time.append( j['referenceTime'] )
-        
+            time.append( datetime.datetime.strptime( 
+                j['referenceTime'][0:19], '%Y-%m-%dT%H:%M:%S') )
+            
         #read metadata
         df = pd.DataFrame(data={'time':time, 'PT1H':data})
         df = df.set_index('time')
@@ -65,8 +72,4 @@ for i in met_stations:
         print('Skip: ', i, ' (', c, '/', str(tot), ')')
 
     c +=1
-
-
-
-
 

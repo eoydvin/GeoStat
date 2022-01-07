@@ -158,8 +158,8 @@ class OrdinaryKriging(object):
         
         
         design_matrix_inv = np.linalg.pinv(design_matrix) 
-        z_grid_intp = np.zeros([ygrid.size, xgrid.size])
-        z_grid_sigma = np.zeros([ygrid.size, xgrid.size])
+        z_grid_intp = np.zeros(xgrid.shape)
+        z_grid_sigma = np.zeros(xgrid.shape)
 
         x_data_t = self.xdata.reshape(-1, 1) #matrix friendly
         y_data_t = self.ydata.reshape(-1, 1)
@@ -168,10 +168,10 @@ class OrdinaryKriging(object):
         #flip y so that we start upper left 
         #ygrid = np.flip(ygrid)
         
-        for i in range(len(xgrid)):
-            for j in range(len(ygrid)):
+        for i in range(xgrid.shape[1]):
+            for j in range(ygrid.shape[0]):
                 # Distance from new point to measured points
-                h = np.sqrt((x_data_t - xgrid[i])**2 + (y_data_t - ygrid[j])**2) 
+                h = np.sqrt((x_data_t - xgrid[j, i])**2 + (y_data_t - ygrid[j, i])**2) 
                 
                 # Estimate gamma and cov for these distances
                 cov_eo = self.cov_z(h) 
