@@ -29,8 +29,13 @@ def get_rain_from_frost_hourly(ids, start, end):
     return r.json()
 
 #should be compatible with metadata file as not all stations are online always
-start = '2018-08-08T08:00:00' 
-end = '2018-08-08T15:00:00'
+#start = '2018-08-08T08:00:00' 
+#end = '2018-08-08T15:00:00'
+#start = '2018-08-07T08:00:00' 
+#end = '2018-08-09T15:00:00'
+
+start = '2018-06-07T08:00:00' 
+end = '2019-09-09T15:00:00'
 
 a_file = open("./stations/meta_data.pkl", "rb")
 met_stations = pickle.load(a_file)

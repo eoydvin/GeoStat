@@ -52,6 +52,7 @@ for date in daterange:
     for data_hour, time in zip(data, ds.variables['time'][:].data):
         reflectivity[datetime.datetime.fromtimestamp(time)] = [data_hour]
 
+# too large for gitHub
 a_file = open("/home/erlend/radar.pkl", "wb")
 pickle.dump(reflectivity, a_file)
 a_file.close()

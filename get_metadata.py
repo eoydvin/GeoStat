@@ -36,6 +36,7 @@ def get_available_gauges_in_area(geometry=None, elements=None,
         "geometry": geometry,
         "elements": elements,
         "validtime": validtime,
+        "country": country,
     }
     r = requests.get(url, params, headers=headers, auth=(clientID, ""))
     return r.json()
@@ -54,8 +55,12 @@ elements = "sum(precipitation_amount PT1H)"  #timesnedbør
 #elements = "sum(precipitation_amount PT1M)" #minuttnedbør
 
 # Valid timeinterval
-start = '2018-08-07' 
-end = '2018-08-09'
+#start = '2018-08-07' 
+#end = '2018-08-09'
+
+start = '2018-06-07' 
+end = '2019-09-09'
+
 
 if (start is not None) and (end is not None):
     validtime = f"{start}/{end}"
