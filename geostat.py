@@ -82,6 +82,9 @@ class OrdinaryKriging(object):
         df_bins = pd.DataFrame([bins_mid, gamma_mean]).transpose()
         df_bins.dropna(subset = [1], inplace=True) #drop bins without data
 
+        #plt.plot(df_short['h[m]'], df_short['delta_p'], 'x')
+        #plt.show()
+
         # fit curve to gamma values and distances
         C1, cov = curve_fit(f=self.gamma_h, xdata=df_bins[0], ydata=df_bins[1])        
         
